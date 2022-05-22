@@ -23,15 +23,16 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {{ request()->is('admin/master-data/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('admin/master-data/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-server"></i>
                         <p>
                             Master Data
@@ -40,7 +41,22 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.barang.index') }}" class="nav-link">
+                            <a href="{{ route('admin.satuan.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.satuan.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Satuan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.jenis.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.jenis.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jenis</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.barang.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.barang.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Barang</p>
                             </a>
@@ -48,15 +64,30 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-exchange-alt"></i>
+                        <p>
+                            Stok In Out
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Inventory
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>{{ __('Logout') }}</p>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                        <a href="{{ route('logout') }}" class="nav-link"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>
-                                Logout
-                            </p>
-                        </a>
                     </form>
                 </li>
             </ul>
