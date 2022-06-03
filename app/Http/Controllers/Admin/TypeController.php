@@ -21,4 +21,14 @@ class TypeController extends Controller
             'types' => Type::latest()->get()
         ]);
     }
+
+    public function destroy(Type $type)
+    {
+        try {
+            $type->delete();
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+        return back()->with('success', 'Data berhasil dihapus');
+    }
 }

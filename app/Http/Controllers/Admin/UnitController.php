@@ -21,4 +21,14 @@ class UnitController extends Controller
             'units' => Unit::latest()->get()
         ]);
     }
+
+    public function destroy(Unit $unit)
+    {
+        try {
+            $unit->delete();
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+        return back()->with('success', 'Data berhasil dihapus');
+    }
 }

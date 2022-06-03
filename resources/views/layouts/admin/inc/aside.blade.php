@@ -64,7 +64,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('admin.stok-in-out.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.stok-in-out.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-exchange-alt"></i>
                         <p>
                             Stok In Out
@@ -72,7 +73,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('admin.inventory.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.inventory.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
                             Inventory

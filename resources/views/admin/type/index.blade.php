@@ -22,26 +22,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($types as $type)
+                                @foreach ($types as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $type->name }}</td>
+                                        <td>{{ $item->name }}</td>
                                         <td>
                                             <div class="d-flex align-item-center">
                                                 <a class="btn btn-sm btn-primary mr-2" href="">
                                                     <i class="fas fa-edit mr-1"></i> Edit</a>
-                                                {{-- <form
-                                                    action="{{ route('panitia.tipe-pembayaran.destroy', Crypt::encrypt($type->id)) }}"
-                                                    method="POST"
-                                                    onsubmit="if(confirm('{{ __('Are you sure to delete this item ?') }}')){ return true }else{ return false }">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form> --}}
+                                                <button class="btn btn-sm btn-danger" data-toggle="modal"
+                                                    data-target="#modal-delete{{ $item->id }}">
+                                                    <i class="fas fa-trash-alt mr-1"></i> Hapus</button>
                                             </div>
                                         </td>
                                     </tr>
+                                    @include('admin.inc.modal-confirm', ['route' => route('admin.jenis.destroy', $item->id)])
                                 @endforeach
                             </tbody>
                         </table>

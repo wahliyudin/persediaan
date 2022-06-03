@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
+        @include('admin.inc.tosatr')
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -22,26 +23,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($units as $unit)
+                                @foreach ($units as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $unit->name }}</td>
+                                        <td>{{ $item->name }}</td>
                                         <td>
                                             <div class="d-flex align-item-center">
                                                 <a class="btn btn-sm btn-primary mr-2" href="">
                                                     <i class="fas fa-edit mr-1"></i> Edit</a>
-                                                {{-- <form
-                                                    action="{{ route('panitia.tipe-pembayaran.destroy', Crypt::encrypt($unit->id)) }}"
-                                                    method="POST"
-                                                    onsubmit="if(confirm('{{ __('Are you sure to delete this item ?') }}')){ return true }else{ return false }">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form> --}}
+                                                <button class="btn btn-sm btn-danger" data-toggle="modal"
+                                                    data-target="#modal-delete{{ $item->id }}">
+                                                    <i class="fas fa-trash-alt mr-1"></i> Hapus</button>
                                             </div>
                                         </td>
                                     </tr>
+                                    @include('admin.inc.modal-confirm', ['route' => route('admin.satuan.destroy', $item->id)])
                                 @endforeach
                             </tbody>
                         </table>
