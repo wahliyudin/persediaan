@@ -30,7 +30,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
             Route::get('/', [TypeController::class, 'index'])->name('index');
             Route::delete('{type}/destroy', [TypeController::class, 'destroy'])->name('destroy');
         });
-        Route::resource('barang', ProductController::class);
+        Route::prefix('products')->name('products.')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('index');
+            Route::get('create', [ProductController::class, 'create'])->name('create');
+            Route::post('store', [ProductController::class, 'store'])->name('store');
+            Route::get('{id}/edit', [ProductController::class, 'edit'])->name('edit');
+            Route::put('{id}/update', [ProductController::class, 'update'])->name('update');
+        });
         Route::resource('gudang', WarehouseController::class);
     });
 

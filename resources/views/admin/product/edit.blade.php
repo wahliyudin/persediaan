@@ -6,22 +6,24 @@
             <div class="col-12">
                 <div class="card">
                     <!-- /.card-header -->
-                    <form action="{{ route('admin.products.store') }}" method="post">
+                    <form action="{{ route('admin.products.update', Crypt::encrypt($product->id)) }}" method="post">
                         @csrf
+                        @method('PUT')
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name">Nama</label>
-                                    <input type="text" name="name" class="form-control" value="{{ old('name') }}"
-                                        id="name" placeholder="Enter name">
+                                    <input type="text" name="name" class="form-control"
+                                        value="{{ old('name', $product->name) }}" id="name" placeholder="Enter name">
                                     @error('name')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="price">Harga</label>
-                                    <input type="text" name="price" value="{{ old('price') }}" class="form-control"
-                                        id="price" placeholder="Harga">
+                                    <input type="text" name="price"
+                                        value="{{ old('price', 'Rp. ' . numberFormat($product->price)) }}"
+                                        class="form-control" id="price" placeholder="Harga">
                                     @error('price')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
@@ -33,7 +35,8 @@
                                     <select name="unit_id" class="form-control select2" style="width: 100%;">
                                         <option selected="selected" disabled>-- pilih --</option>
                                         @foreach ($units as $unit)
-                                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                            <option {{ $product->unit_id == $unit->id ? 'selected' : '' }}
+                                                value="{{ $unit->id }}">{{ $unit->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('unit_id')
@@ -45,7 +48,8 @@
                                     <select name="type_id" class="form-control select2" style="width: 100%;">
                                         <option selected="selected" disabled>-- pilih --</option>
                                         @foreach ($types as $type)
-                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            <option {{ $product->type_id == $type->id ? 'selected' : '' }}
+                                                value="{{ $type->id }}">{{ $type->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('type_id')
@@ -59,7 +63,8 @@
                                     <select name="warehouse_id" class="form-control select2" style="width: 100%;">
                                         <option selected="selected" disabled>-- pilih --</option>
                                         @foreach ($warehouses as $warehouse)
-                                            <option value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
+                                            <option {{ $product->warehouse_id == $warehouse->id ? 'selected' : '' }}
+                                                value="{{ $warehouse->id }}">{{ $warehouse->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('warehouse_id')
@@ -71,7 +76,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Submit</button>
+                            <button type="submit" class="btn btn-primary float-right">Update</button>
                         </div>
                     </form>
                     <!-- /.card-body -->

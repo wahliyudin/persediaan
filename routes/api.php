@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\TypeController;
 use App\Http\Controllers\API\UnitController;
 use App\Http\Controllers\API\WarehouseController;
@@ -43,5 +44,10 @@ Route::name('api.')->group(function () {
         Route::get('{id}/edit', [WarehouseController::class, 'edit'])->name('edit');
         Route::put('{id}/update', [WarehouseController::class, 'update'])->name('update');
         Route::delete('{id}/destroy', [WarehouseController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('products')->name('products.')->group(function () {
+        Route::post('/', [ProductController::class, 'index'])->name('index');
+        Route::delete('{id}/destroy', [ProductController::class, 'destroy'])->name('destroy');
     });
 });
