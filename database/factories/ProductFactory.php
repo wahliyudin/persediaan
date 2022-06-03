@@ -18,7 +18,6 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->words(2, true),
-            'stock' => $this->faker->numberBetween(5, 10),
             'price' => $this->faker->numberBetween(1_000, 100_000),
             'unit_id' => $this->faker->randomElement(Unit::pluck('id')->toArray()),
             'type_id' => $this->faker->randomElement(Type::pluck('id')->toArray()),

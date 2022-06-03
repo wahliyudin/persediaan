@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Product::with('product', 'type', 'warehouse')->oldest()->get();
+            $data = Product::with('unit', 'type', 'warehouse')->oldest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -42,6 +42,29 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Menghapus data barang',
+            ]);
+        } catch (\Exception $th) {
+            $th->getCode() == 400 ?? $code = 500;
+            return response()->json([
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ], $code);
+        }
+    }
+
+    public function getProduct($id)
+    {
+        try {
+            $id = Crypt::decrypt($id);
+            $product = Product::with('unit', 'warehouse')->find($id);
+
+            if (!$product) {
+                throw new Exception('Data barang tidak ditemukan!', 400);
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $product,
             ]);
         } catch (\Exception $th) {
             $th->getCode() == 400 ?? $code = 500;

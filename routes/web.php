@@ -43,6 +43,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::prefix('incoming-product')->name('incoming-product.')->group(function () {
         Route::get('/', [IncomingProductController::class, 'index'])->name('index');
         Route::get('/create', [IncomingProductController::class, 'create'])->name('create');
+        Route::post('store', [IncomingProductController::class, 'store'])->name('store');
     });
 
     Route::prefix('product-out')->name('product-out.')->group(function () {

@@ -47,6 +47,7 @@ Route::name('api.')->group(function () {
     });
 
     Route::prefix('products')->name('products.')->group(function () {
+        Route::get('{id}', [ProductController::class, 'getProduct'])->name('get-product');
         Route::post('/', [ProductController::class, 'index'])->name('index');
         Route::delete('{id}/destroy', [ProductController::class, 'destroy'])->name('destroy');
     });
