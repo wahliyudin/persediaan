@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Jenis Barang</h3>
-                        <a href="" class="btn btn-sm btn-primary float-right"><i class="fas fa-plus mr-2"></i>
+                        <a href="" class="btn btn-sm btn-primary float-right tambah"><i class="fas fa-plus mr-2"></i>
                             Tambah
                             Data</a>
                     </div>
@@ -36,7 +36,9 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @include('admin.inc.modal-confirm', ['route' => route('admin.jenis.destroy', $item->id)])
+                                    @include('admin.inc.modal-confirm', [
+                                        'route' => route('admin.jenis.destroy', $item->id),
+                                    ])
                                 @endforeach
                             </tbody>
                         </table>

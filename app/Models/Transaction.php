@@ -9,18 +9,19 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    const TYPE_IN = 'in';
-    const TYPE_OUT = 'out';
-    const TYPE_ORDER = 'order';
+    const STATUS_IN = 'in';
+    const STATUS_OUT = 'out';
 
     protected $fillable = [
+        'product_id',
         'invoice',
-        'date',
-        'type'
+        'tanggal',
+        'jumlah',
+        'status'
     ];
 
-    public function products()
+    public function product()
     {
-        return $this->belongsToMany(Product::class, 'product_transaction');
+        return $this->belongsTo(Product::class);
     }
 }

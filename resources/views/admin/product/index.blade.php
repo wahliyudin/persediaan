@@ -21,7 +21,7 @@
                                     <th>Stok</th>
                                     <th>Satuan</th>
                                     <th>Jenis</th>
-                                    <th>Biaya</th>
+                                    <th>Gudang</th>
                                     <th>Harga</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -34,7 +34,7 @@
                                         <td>{{ $product->stock }}</td>
                                         <td>{{ $product->unit->name }}</td>
                                         <td>{{ $product->type->name }}</td>
-                                        <td>Rp. {{ numberFormat($product->cost) }}</td>
+                                        <td>{{ $product->warehouse->name }}</td>
                                         <td>Rp. {{ numberFormat($product->price) }}</td>
                                         <td>
                                             <div class="d-flex align-item-center">

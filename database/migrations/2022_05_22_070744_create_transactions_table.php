@@ -15,9 +15,13 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('product_id');
             $table->string('invoice');
-            $table->date('date');
-            $table->enum('type', ['in', 'out', 'order']);
+            $table->date('tanggal');
+            $table->bigInteger('jumlah');
+            $table->enum('status', ['in', 'out']);
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

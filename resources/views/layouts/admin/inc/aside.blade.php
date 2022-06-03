@@ -55,6 +55,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('admin.gudang.index') }}"
+                                class="nav-link {{ request()->routeIs('admin.gudang.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Gudang</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('admin.barang.index') }}"
                                 class="nav-link {{ request()->routeIs('admin.barang.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -64,11 +71,20 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.stok-in-out.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.stok-in-out.index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-exchange-alt"></i>
+                    <a href="{{ route('admin.incoming-product.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.incoming-product.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file-download"></i>
                         <p>
-                            Stok In Out
+                            Barang Masuk
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.product-out.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.product-out.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file-upload"></i>
+                        <p>
+                            Barang Keluar
                         </p>
                     </a>
                 </li>

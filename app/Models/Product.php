@@ -12,10 +12,10 @@ class Product extends Model
     protected $fillable = [
         'name',
         'stock',
-        'cost',
         'price',
         'unit_id',
-        'type_id'
+        'type_id',
+        'warehouse_id'
     ];
 
     public function unit()
@@ -26,6 +26,11 @@ class Product extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 
     public function transactions()

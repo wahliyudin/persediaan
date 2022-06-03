@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\UnitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::name('api.')->group(function () {
+    Route::prefix('units')->name('units.')->group(function () {
+        Route::post('/', [UnitController::class, 'index'])->name('index');
+        Route::post('store', [UnitController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [UnitController::class, 'edit'])->name('edit');
+        Route::put('{id}/update', [UnitController::class, 'update'])->name('update');
+        Route::delete('{id}/destroy', [UnitController::class, 'destroy'])->name('destroy');
+    });
 });

@@ -4,6 +4,8 @@ npm install
 npm run dev
 php artisan migrate
 
+composer require yajra/laravel-datatables-oracle:*
+
 
 composer require santigarcor/laratrust
 php artisan vendor:publish --tag="laratrust"

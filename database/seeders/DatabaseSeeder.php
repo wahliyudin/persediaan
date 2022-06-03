@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Product;
 use App\Models\Type;
 use App\Models\Unit;
+use App\Models\Warehouse;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         Unit::factory(3)->create();
         Type::factory(10)->create();
+        $this->call(WarehouseSeeder::class);
         Product::factory(100)->create();
         $this->call(CreateRoleSeeder::class);
         $this->call(UserSeeder::class);

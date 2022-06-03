@@ -17,13 +17,14 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->bigInteger('stock');
-            $table->bigInteger('cost');
             $table->bigInteger('price');
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('warehouse_id');
 
             $table->foreign('unit_id')->references('id')->on('units')->cascadeOnDelete();
             $table->foreign('type_id')->references('id')->on('types')->cascadeOnDelete();
+            $table->foreign('warehouse_id')->references('id')->on('warehouses')->cascadeOnDelete();
             $table->timestamps();
         });
     }
