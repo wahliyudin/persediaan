@@ -49,7 +49,6 @@ class IncomingProductController extends Controller
         try {
             $product_id = Crypt::decrypt($request->product_id);
         } catch (DecryptException $e) {
-
         }
         try {
             Transaction::create([
@@ -62,6 +61,40 @@ class IncomingProductController extends Controller
             Product::find($product_id)->update(['stock' => $request->total_stok]);
 
             return redirect()->route('admin.incoming-product.index')->with('success', 'Data berhasil ditambahkan');
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (DecryptException $e) {
+        }
+
+        return view('admin.incoming-product.edit', [
+            'products' => Product::latest()->get(),
+            'incoming_product' => Transaction::with('product', 'product.unit', 'product.warehouse')->find($id)
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (DecryptException $e) {
+        }
+
+        try {
+            $transaction = Transaction::find($id);
+            $transaction->update([
+                'tanggal' => Carbon::make($request->tanggal)->format('Y-m-d'),
+                'jumlah' => $request->stok_masuk
+            ]);
+            Product::find($transaction->product_id)->update(['stock' => $request->total_stok]);
+
+            return redirect()->route('admin.incoming-product.index')->with('success', 'Data berhasil diubah');
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
         }

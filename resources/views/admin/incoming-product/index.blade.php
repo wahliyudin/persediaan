@@ -37,9 +37,9 @@
                                         <td>{{ $incoming_product->jumlah }}</td>
                                         <td>
                                             <div class="d-flex align-item-center">
-                                                <a href="" class="btn btn-sm btn-primary mr-2"><i
-                                                        class="fas fa-eye mr-1"></i>
-                                                    Detail</a>
+                                                <a href="{{ route('admin.incoming-product.edit', Crypt::encrypt($incoming_product->id)) }}"
+                                                    class="btn btn-sm btn-success mr-2">Ubah</a>
+                                                <a href="" class="btn btn-sm btn-danger mr-2">Hapus</a>
                                             </div>
                                         </td>
                                     </tr>
