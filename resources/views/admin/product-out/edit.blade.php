@@ -6,21 +6,24 @@
             <div class="col-12">
                 <div class="card">
                     <!-- /.card-header -->
-                    <form action="{{ route('admin.product-out.store') }}" method="post">
+                    <form action="{{ route('admin.product-out.update', Crypt::encrypt($product_out->id)) }}"
+                        method="post">
                         @csrf
+                        @method('PUT')
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label for="invoice">Invoice</label>
                                     <input type="text" name="invoice" class="form-control" readonly
-                                        value="{{ old('invoice', $invoice) }}" id="invoice">
+                                        value="{{ old('invoice', $product_out->invoice) }}" id="invoice">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label>Tanggal</label>
                                     <div class="input-group date" id="tanggal" data-target-input="nearest">
                                         <input type="text" required name="tanggal"
                                             class="form-control datetimepicker-input {{ $errors->has('tanggal') ? ' is-invalid' : '' }}"
-                                            data-target="#tanggal" value="">
+                                            data-target="#tanggal"
+                                            value="{{ \Carbon\Carbon::make($product_out->tanggal)->format('d/m/Y') }}">
                                         <div class="input-group-append" data-target="#tanggal" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -31,10 +34,12 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label>Barang</label>
-                                    <select name="product_id" class="product_id form-control select2" style="width: 100%;">
+                                    <select name="product_id" disabled class="product_id form-control select2"
+                                        style="width: 100%;">
                                         <option selected="selected" disabled>-- pilih --</option>
                                         @foreach ($products as $product)
-                                            <option value="{{ Crypt::encrypt($product->id) }}">{{ $product->name }}
+                                            <option {{ $product_out->product->id == $product->id ? 'selected' : '' }}
+                                                value="{{ Crypt::encrypt($product->id) }}">{{ $product->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -46,36 +51,38 @@
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label for="nama_barang">Nama Barang</label>
-                                    <input type="text" class="form-control" readonly value="{{ old('nama_barang') }}"
-                                        id="nama_barang">
+                                    <input type="text" class="form-control" readonly
+                                        value="{{ old('nama_barang', $product_out->product->name) }}" id="nama_barang">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="satuan">Satuan</label>
-                                    <input type="text" class="form-control" readonly value="{{ old('satuan') }}"
-                                        id="satuan">
+                                    <input type="text" class="form-control" readonly
+                                        value="{{ old('satuan', $product_out->product->unit->name) }}" id="satuan">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="gudang">Gudang</label>
-                                    <input type="text" class="form-control" readonly value="{{ old('gudang') }}"
-                                        id="gudang">
+                                    <input type="text" class="form-control" readonly
+                                        value="{{ old('gudang', $product_out->product->warehouse->name) }}" id="gudang">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-4">
                                     <label for="stok_barang">Stok Barang</label>
-                                    <input type="text" class="form-control" readonly value="{{ old('stok_barang') }}"
+                                    <input type="text" class="form-control" readonly
+                                        value="{{ old('stok_barang', $product_out->product->stock + $product_out->jumlah) }}"
                                         id="stok_barang">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="stok_keluar">Stok Keluar</label>
                                     <input type="text" class="form-control" name="stok_keluar"
-                                        value="{{ old('stok_keluar') }}" id="stok_keluar">
+                                        value="{{ old('stok_keluar', $product_out->jumlah) }}" id="stok_keluar">
                                     <span class="text-danger keluarError"></span>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="total_stok">Total Stok</label>
                                     <input type="text" class="form-control" name="total_stok" readonly
-                                        value="{{ old('total_stok') }}" id="total_stok">
+                                        value="{{ old('total_stok', $product_out->product->stock + $product_out->jumlah - $product_out->jumlah) }}"
+                                        id="total_stok">
                                 </div>
                             </div>
                         </div>

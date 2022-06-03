@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\IncomingProductController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProductOutController;
 use App\Http\Controllers\API\TypeController;
 use App\Http\Controllers\API\UnitController;
 use App\Http\Controllers\API\WarehouseController;
@@ -54,4 +55,5 @@ Route::name('api.')->group(function () {
     });
 
     Route::delete('incoming-products/{id}/destroy', [IncomingProductController::class, 'destroy'])->name('destroy');
+    Route::delete('product-outs/{id}/destroy', [ProductOutController::class, 'destroy'])->name('destroy');
 });

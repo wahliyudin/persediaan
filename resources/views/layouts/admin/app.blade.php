@@ -10,7 +10,7 @@
     @include('layouts.admin.inc.css')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="overflow-x: hidden;">
     <div class="wrapper">
 
         <!-- Navbar -->

@@ -79,6 +79,14 @@ class ProductController extends Controller
         }
 
         return view('admin.product.edit', [
+            'breadcrumbs' => [
+                'title' => 'Edit Barang',
+                'path' => [
+                    'Master Data' => route('admin.products.index'),
+                    'Data Barang' => route('admin.products.index'),
+                    'Edit Barang' => 0
+                ]
+            ],
             'product' => Product::with('unit', 'type', 'warehouse')->find($id),
             'units' => Unit::latest()->get(['id', 'name']),
             'types' => Type::latest()->get(['id', 'name']),

@@ -51,6 +51,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::prefix('product-out')->name('product-out.')->group(function () {
         Route::get('/', [ProductOutController::class, 'index'])->name('index');
         Route::get('create', [ProductOutController::class, 'create'])->name('create');
+        Route::post('store', [ProductOutController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [ProductOutController::class, 'edit'])->name('edit');
+        Route::put('{id}/update', [ProductOutController::class, 'update'])->name('update');
     });
 
     Route::prefix('inventory')->name('inventory.')->group(function () {

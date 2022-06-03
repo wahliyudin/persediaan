@@ -12,3 +12,8 @@ php artisan vendor:publish --tag="laratrust"
 php artisan laratrust:setup
 composer dump-autoload
 php artisan migrate
+
+
+[] Barang Keluar CRUD
+[] Pengguna CRUD
+[] Dashboard

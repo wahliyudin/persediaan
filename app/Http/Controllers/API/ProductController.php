@@ -18,9 +18,10 @@ class ProductController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<a href="' . route('admin.products.edit', Crypt::encrypt($row->id)) . '"
-                        class="btn btn-success btn-sm">Ubah</a> <a href="javascript:(0);"
-                        id="' . Crypt::encrypt($row->id) . '" class="delete btn btn-danger btn-sm">Hapus</a>';
+                    $actionBtn = '<div class="d-flex align-item-center"> <a
+                            href="' . route('admin.products.edit', Crypt::encrypt($row->id)) . '"
+                        class="btn btn-success btn-sm mr-2">Ubah</a> <a href="javascript:(0);"
+                        id="' . Crypt::encrypt($row->id) . '" class="delete btn btn-danger btn-sm">Hapus</a> </div>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

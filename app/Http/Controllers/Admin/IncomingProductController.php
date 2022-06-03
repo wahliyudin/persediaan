@@ -40,7 +40,7 @@ class IncomingProductController extends Controller
                 ]
             ],
             'products' => Product::latest()->get(),
-            'invoice' => generateInvoice()
+            'invoice' => generateInvoiceIn()
         ]);
     }
 

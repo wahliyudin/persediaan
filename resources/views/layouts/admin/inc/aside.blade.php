@@ -88,7 +88,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.inventory.index') }}"
                         class="nav-link {{ request()->routeIs('admin.inventory.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-boxes"></i>
@@ -96,7 +96,7 @@
                             Inventory
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
