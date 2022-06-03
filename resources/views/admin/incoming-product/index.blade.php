@@ -39,7 +39,8 @@
                                             <div class="d-flex align-item-center">
                                                 <a href="{{ route('admin.incoming-product.edit', Crypt::encrypt($incoming_product->id)) }}"
                                                     class="btn btn-sm btn-success mr-2">Ubah</a>
-                                                <a href="" class="btn btn-sm btn-danger mr-2">Hapus</a>
+                                                <button id="{{ Crypt::encrypt($incoming_product->id) }}"
+                                                    class="delete btn btn-sm btn-danger mr-2">Hapus</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -80,5 +81,56 @@
                 "autoWidth": false,
             }).buttons().container().appendTo('#incoming-product_wrapper .col-md-6:eq(0)');
         });
+
+        var ajaxError = function(jqXHR, xhr, textStatus, errorThrow, exception) {
+            if (jqXHR.status === 0) {
+                toastr.error('Not connect.\n Verify Network.', 'Error!');
+            } else if (jqXHR.status == 400) {
+                toastr.warning(jqXHR['responseJSON'].message, 'Peringatan!');
+            } else if (jqXHR.status == 404) {
+                toastr.error('Requested page not found. [404]', 'Error!');
+            } else if (jqXHR.status == 500) {
+                toastr.error('Internal Server Error [500].' + jqXHR['responseJSON'].message, 'Error!');
+            } else if (exception === 'parsererror') {
+                toastr.error('Requested JSON parse failed.', 'Error!');
+            } else if (exception === 'timeout') {
+                toastr.error('Time out error.', 'Error!');
+            } else if (exception === 'abort') {
+                toastr.error('Ajax request aborted.', 'Error!');
+            } else {
+                toastr.error('Uncaught Error.\n' + jqXHR.responseText, 'Error!');
+            }
+        };
+
+
+        // delete
+        $('body').on('click', '.delete', function(e) {
+            e.preventDefault();
+            deleteBarangMasuk($(this).attr('id'))
+        });
+
+        function deleteBarangMasuk(id) {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Barang Masuk akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus Sekarang!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "{{ env('APP_URL') }}/api/incoming-products/" + id + "/destroy",
+                        type: 'DELETE',
+                        success: function(resp) {
+                            toastr.success(resp.message, 'Berhasil!');
+                            location.reload();
+                        },
+                        error: ajaxError,
+                    });
+                }
+            })
+        }
     </script>
 @endpush

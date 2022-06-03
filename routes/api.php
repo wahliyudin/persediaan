@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\IncomingProductController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\TypeController;
 use App\Http\Controllers\API\UnitController;
@@ -51,4 +52,6 @@ Route::name('api.')->group(function () {
         Route::post('/', [ProductController::class, 'index'])->name('index');
         Route::delete('{id}/destroy', [ProductController::class, 'destroy'])->name('destroy');
     });
+
+    Route::delete('incoming-products/{id}/destroy', [IncomingProductController::class, 'destroy'])->name('destroy');
 });
