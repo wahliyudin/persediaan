@@ -14,6 +14,5 @@ composer dump-autoload
 php artisan migrate
 
 
-[] Barang Keluar CRUD
 [] Pengguna CRUD
-[] Dashboard
+https://www.youtube.com/watch?v=r3k3KBcT7q8&t=1101s
